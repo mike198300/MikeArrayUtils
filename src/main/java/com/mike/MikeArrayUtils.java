@@ -16,6 +16,9 @@ public class MikeArrayUtils {
     }
 
     public static ArrayList<byte[]> arraySplit(byte[] src, byte[] separator){
+        if (src.length < separator.length){
+            throw new ArrayIndexOutOfBoundsException("separator's length is larger than the source's.");
+        }
         ArrayList<byte[]> retArrayList = new ArrayList<byte[]>();
         ArrayList<Integer> indexArrayList = MikeArrayUtils.indexOfSeq(src,separator);
         if (indexArrayList.size() == 0){
@@ -42,13 +45,16 @@ public class MikeArrayUtils {
         return retArrayList;
     }
 
-    public static ArrayList<Integer> indexOfSeq(byte[] src, byte[] sec){
+    public static ArrayList<Integer> indexOfSeq(byte[] src, byte[] sequence){
+        if (src.length < sequence.length){
+            throw new ArrayIndexOutOfBoundsException("sequence's length is larger than the source's.");
+        }
         ArrayList<Integer> retArrayList = new ArrayList<Integer>();
-        if (sec.length <= src.length){
-            for (int i = 0; i < (src.length - sec.length  + 1); i++){
+        if (sequence.length <= src.length){
+            for (int i = 0; i < (src.length - sequence.length  + 1); i++){
                 boolean mark = true;
-                for (int j = 0 ; j < sec.length ; j++){
-                    if (src[i + j] != sec[j]){
+                for (int j = 0 ; j < sequence.length ; j++){
+                    if (src[i + j] != sequence[j]){
                         mark = false;
                         break;
                     }
@@ -62,6 +68,12 @@ public class MikeArrayUtils {
     }
 
     public static byte[] getPart(byte[] src, int start, int end){
+        if ((src.length < start)
+                | (src.length < end)
+                | (end < start)
+                ){
+            throw new ArrayIndexOutOfBoundsException("unsuitable index input.");
+        }
         int count = end - start + 1;
         byte[] bs = new byte[count];
         System.arraycopy(src, start, bs, 0, count);

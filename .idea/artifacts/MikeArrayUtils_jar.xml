@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="MikeArrayUtils:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MikeArrayUtils_jar</output-path>
+    <root id="archive" name="MikeArrayUtils.jar">
+      <element id="module-output" name="MikeArrayUtils" />
+    </root>
+  </artifact>
+</component>

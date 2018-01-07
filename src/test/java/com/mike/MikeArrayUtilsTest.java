@@ -28,8 +28,8 @@ public class MikeArrayUtilsTest {
 
     @Test
     public void arraySplit() {
-        byte[] a = {2,3,2,3,4,5,7,6,3,2,3,6,7,8,9,2,3};
-        byte[] b = {2,3};
+        byte[] a = {2,3,2,3,4,5,7,6,3,2,3,4,6,7,8,9,2,3,6,7,8,7,9,2,3,4};
+        byte[] b = {2,3,4};
         ArrayList<byte[]> c = new ArrayList<byte[]>();
         c = MikeArrayUtils.arraySplit(a,b);
         System.out.print(c.toString());

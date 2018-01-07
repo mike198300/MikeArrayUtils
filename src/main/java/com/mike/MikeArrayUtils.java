@@ -24,23 +24,35 @@ public class MikeArrayUtils {
         if (indexArrayList.size() == 0){
             retArrayList.add(src);
         } else {
-            retArrayList.add(MikeArrayUtils.getPart(src,0,indexArrayList.get(0)-1));
-            for (int i = 0 ; i < (indexArrayList.size() - 1); i++){
+             if (indexArrayList.get(0) == 0){
+                 retArrayList.add(new byte[]{});
+             } else {
+                 retArrayList.add(MikeArrayUtils.getPart(src,0,indexArrayList.get(0)-1));
+             }
+            for (int i = 0; i < (indexArrayList.size() - 1); i++) {
+                 if ((indexArrayList.get(i) + separator.length) > (indexArrayList.get(i+1)-1)){
+                     retArrayList.add(new byte[]{});
+                 } else {
+                     retArrayList.add(
+                             MikeArrayUtils.getPart(
+                                     src,
+                                     indexArrayList.get(i) + separator.length,
+                                     indexArrayList.get(i + 1) - 1
+                             )
+                     );
+                 }
+            }
+            if ((indexArrayList.get(indexArrayList.size() - 1) + separator.length) == src.length){
+                retArrayList.add(new byte[]{});
+            } else {
                 retArrayList.add(
                         MikeArrayUtils.getPart(
                                 src,
-                                indexArrayList.get(i) + separator.length,
-                                indexArrayList.get(i+1)-1
+                                indexArrayList.get(indexArrayList.size() - 1) + separator.length,
+                                src.length - 1
                         )
                 );
             }
-            retArrayList.add(
-                    MikeArrayUtils.getPart(
-                            src,
-                            indexArrayList.get(indexArrayList.size() - 1) + separator.length,
-                            src.length - 1
-                    )
-            );
         }
         return retArrayList;
     }
@@ -49,7 +61,7 @@ public class MikeArrayUtils {
         if (src.length < sequence.length){
             throw new ArrayIndexOutOfBoundsException("sequence's length is larger than the source's.");
         }
-        ArrayList<Integer> retArrayList = new ArrayList<Integer>();
+        ArrayList<Integer> retArrayList = new ArrayList<>();
         if (sequence.length <= src.length){
             for (int i = 0; i < (src.length - sequence.length  + 1); i++){
                 boolean mark = true;
